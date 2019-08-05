@@ -1,0 +1,8 @@
+说明文档地址（附原型图地址）：https://shimo.im/docs/rIwvGVa3fvMcF3dr   
+原型图地址：https://lanhuapp.com/url/ETlJf   密码: UIYP
+原型图地址：https://lanhuapp.com/web/#/item/   账号：250173319@qq.com   aa110110
+native交互：https://shimo.im/docs/TdWbOpTM9msDhgX5  
+接口地址：挂车之家前台  -- ShowDoc https://www.showdoc.cc/284263312303312
+
+ APP:/project/web/data/guachezhijia/client/guache_h5
+ 爱车:

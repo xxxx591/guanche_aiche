@@ -1,215 +1,108 @@
 <template>
   <div id="app">
-    <!-- <transition :name="transitionName"></transition> -->
-    <transition>
-      <keep-alive>
-        <router-view v-if=" isRouterAlive "></router-view>
-      </keep-alive>
-    </transition>
-
-    
-
-    <div class="loading-box" v-show="showLoading">
-      <div id="Loading">
-        <div class="loader-inner ball-beat">
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
-    </div>
+    <top-home></top-home>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
-import Vue from "vue";
-
+import topHome from "./home"; 
+import { mapState, mapMutations } from "vuex";
 export default {
+  components: {
+    topHome
+  },
   name: "App",
   data() {
     return {
-      transitionName: "slide-none",
-      isRouterAlive: true
+      isReload: true
     };
   },
-  provide() {
-    return {
-      reload: this.reload
-    };
-  },
-  watch: {
-    // $route(to, from) {
-    //   let routersArr = Vue.ls.get('routers') && Vue.ls.get('routers').split(',') || [];
-    //   if (routersArr.length == 0) {
-    //     routersArr.push(to.path);
-    //   } else {
-    //     if (routersArr.indexOf(to.path) != -1) {
-    //       this.transitionName = 'slide-right'
-    //       routersArr.splice(routersArr.indexOf(to.path) + 1, 100)
-    //     } else {
-    //       this.transitionName = 'slide-left'
-    //       routersArr.push(to.path)
-    //     }
-    //   }
-    //   Vue.ls.set('routers', routersArr.join(','))
-    // }
-    // showLoading
-  },
-  beforeRouteLeave(to, from, next) {
-    console.log("app--setLoading---", this.setLoading);
-    next(vm => {
-      vm.setLoading(true);
-      console.log("app--vm--setLoading---", vm.setLoading);
-    });
-  },
-  computed: {
-    ...mapState({
-      token: state => state.datas.token,
-      showLoading: state => state.datas.showLoading
-    })
-  },
+  computed: mapState({
+    // 箭头函数可使代码更简练
+  }),
   methods: {
-    ...mapActions(["setMobileHeight", "setLoading", "saveToken"]),
-    reload() {
-      this.isRouterAlive = false;
-      this.$nextTick(function() {
-        this.isRouterAlive = true;
-      });
-    }
-  },
-  async created() {
-    // let re = await this.native.saveToken({ token: '470421ec059443ac059f63e84eeec8b7' })
-
-    this.setMobileHeight(window.document.body.clientHeight);
-
-    let token = await this.native.getToken({});
-    this.saveToken(token.token);
+    
   },
   mounted() {
-    this.setLoading(false);
+    
   }
 };
 </script>
 
-<style lang="less">
+<style lang="less" >
+@import "./assets/css/common.less";
+* { 
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+*:not(input, textarea) {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+}
 #app {
-  width: 100%;
   height: 100%;
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  position: relative;
-}
-/*向左滑动*/
-@keyframes slideInLeft {
-  from {
-    transform: translate3d(100%, 0, 0);
-    position: fixed;
-    top: 0;
-    left: 0;
-    opacity: 1;
-  }
-  to {
-    transform: translate3d(0, 0, 0);
-    position: fixed;
-    top: 0;
-    left: 0;
-    opacity: 1;
-  }
-}
-@keyframes slideInRight {
-  from {
-    transform: translate3d(0%, 0, 0);
-    position: fixed;
-    top: 0;
-    left: 0;
-    opacity: 1;
-  }
-  to {
-    transform: translate3d(-100%, 0, 0);
-    position: fixed;
-    top: 0;
-    left: 0;
-    opacity: 1;
-  }
-}
-.slide-left-enter-active {
-  position: fixed;
-  top: 0;
-  left: 0%;
-  width: 100vw;
-  height: 100vh;
-  animation: slideInLeft 0.3s linear forwards;
-}
-.slide-left-leave-active {
-  position: fixed;
-  top: 0;
-  left: 0%;
-  width: 100vw;
-  height: 100vh;
-  animation: slideInRight 0.3s linear forwards;
-}
-/*向右滑动*/
-@keyframes slideOutLeft {
-  from {
-    transform: translate3d(-100%, 0, 0);
-    position: fixed;
-    top: 0;
-    left: 0;
-    opacity: 1;
-  }
-  to {
-    transform: translate3d(0%, 0, 0);
-    position: fixed;
-    top: 0;
-    left: 0;
-    opacity: 1;
+  font-family: PingFangSC-Regular;
+  font-size: 16px;
+  -webkit-overflow-scrolling: touch;
+  .weui-cell__ft {
+    .weui-switch {
+      position: relative;
+      width: 42px;
+      height: 22px;
+      border: 1px solid #dfdfdf;
+      outline: 0;
+      border-radius: 16px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      background-color: #5680f9;
+      -webkit-transition: background-color 0.1s, border 0.1s;
+      transition: background-color 0.1s, border 0.1s;
+      &::before {
+        content: " ";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 40px;
+        height: 20px;
+        border-radius: 15px;
+        background-color: #fdfdfd;
+        -webkit-transition: -webkit-transform 0.35s
+          cubic-bezier(0.45, 1, 0.4, 1);
+        transition: -webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);
+        transition: transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);
+        transition: transform 0.35s cubic-bezier(0.45, 1, 0.4, 1),
+          -webkit-transform 0.35s cubic-bezier(0.45, 1, 0.4, 1);
+      }
+      &::after {
+        content: " ";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 15px;
+        background-color: #ffffff;
+        -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        -webkit-transition: -webkit-transform 0.35s
+          cubic-bezier(0.4, 0.4, 0.25, 1.35);
+        transition: -webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);
+        transition: transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);
+        transition: transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35),
+          -webkit-transform 0.35s cubic-bezier(0.4, 0.4, 0.25, 1.35);
+      }
+    }
   }
 }
-@keyframes slideOutRight {
-  from {
-    transform: translate3d(0%, 0, 0);
-    position: fixed;
-    top: 0;
-    left: 0;
-    opacity: 1;
-  }
-  to {
-    transform: translate3d(100%, 0, 0);
-    position: fixed;
-    top: 0;
-    left: 0;
-    opacity: 1;
-  }
+.weui-toast {
+  top: 50% !important;
+  margin-top: -50px !important;
 }
-.van-button {
-  height: 80px !important /* 100/75 */;
-  .van-button__text {
-    font-size: 28px !important;
-  }
+.weui-icon_toast.weui-icon-success-no-circle:before{
+  font-size: 40px!important;
 }
-.van-picker__cancel,
-.van-picker__confirm {
-  font-size: 28px !important;
-}
-.van-toast--text {
-  padding: 16px 24px !important;
-  min-width: 200px !important;
-  font-size: 28px !important;
-}
-.van-picker-column__item {
-  font-size: 32px !important;
-}
-.van-picker__toolbar {
-  height: 80px !important;
-  line-height: 80px !important;
-}
-.van-dialog{
-  font-size: 36px!important;
-}
-.van-dialog__message{
-      padding: 40px!important;
-  font-size: 32px!important;
+.weui-toast__content{
+  width: auto!important;
 }
 </style>

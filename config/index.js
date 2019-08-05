@@ -3,80 +3,102 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
+var pageInfo = require('../CubeModule.json');
 
+function checkTime(i) {
+    if (i < 10) {
+        i = "0" + i;
+    }
+    return i;
+}
+
+function getZipName(type) {
+    var d = new Date();
+    var year = d.getFullYear();
+    var month = checkTime(d.getMonth() + 1);
+    var day = checkTime(d.getDate());
+    var hour = checkTime(d.getHours());
+    var minute = checkTime(d.getMinutes());
+    var mode = type === 2 ? '-pro' : '-test';
+    var ver = type === 2 ? pageInfo.version : pageInfo.testVersion;
+    return pageInfo.name + '-' + ver + mode + '-' + year + month + day + hour + minute + '.zip';
+}
 module.exports = {
-  dev: {
-    // Paths
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
-    proxyTable: {
-      // 凡是以 /api 开头的请求都会转到 http://192.168.1.81:3001
-      '/test': {
-        target: 'http://gczj.sinmore.vip',
-        changeOrigin: true, //跨域
-        pathRewrite: {
-          // 将请求中的 /test开头的换成空
-          '^/test': ''
-        }
-      }
+    buildTest: {
+        zipName: getZipName(1),
+        env: require('./prod.env'),
+        index: path.resolve(__dirname, '../dist/index.html'),
+        assetsRoot: path.resolve(__dirname, '../dist'),
+        assetsSubDirectory: 'static',
+        assetsPublicPath: './',
+        productionSourceMap: true,
+        // Gzip off by default as many popular static hosts such as
+        // Surge or Netlify already gzip all static assets for you.
+        // Before setting to `true`, make sure to:
+        // npm install --save-dev compression-webpack-plugin
+        productionGzip: false,
+        productionGzipExtensions: ['js', 'css']
     },
+    build: {
+        // Template for index.html
+        zipName: getZipName(2),
+        env: require('./prod.env'),
+        index: path.resolve(__dirname, '../dist/index.html'),
 
-    // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
-    // host: '192.168.0.101',
-    // host: '192.168.0.101',
-    // host: '172.20.10.2',
-    port: 8090, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
-    autoOpenBrowser: false,
-    errorOverlay: true,
-    notifyOnErrors: true,
-    poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
+        // Paths
+        assetsRoot: path.resolve(__dirname, '../dist'),
+        assetsSubDirectory: 'static',
+        assetsPublicPath: './',
 
-    /**
-     * Source Maps
-     */
+        /**
+         * Source Maps
+         */
 
-    // https://webpack.js.org/configuration/devtool/#development
-    devtool: 'cheap-module-eval-source-map',
+        productionSourceMap: false,
+        // https://webpack.js.org/configuration/devtool/#production
+        // devtool: '#source-map',
 
-    // If you have problems debugging vue-files in devtools,
-    // set this to false - it *may* help
-    // https://vue-loader.vuejs.org/en/options.html#cachebusting
-    cacheBusting: true,
+        // Gzip off by default as many popular static hosts such as
+        // Surge or Netlify already gzip all static assets for you.
+        // Before setting to `true`, make sure to:
+        // npm install --save-dev compression-webpack-plugin
+        productionGzip: false,
+        productionGzipExtensions: ['js', 'css'],
 
-    cssSourceMap: true
-  },
+        // Run the build command with an extra argument to
+        // View the bundle analyzer report after build finishes:
+        // `npm run build --report`
+        // Set to `true` or `false` to always turn it on or off
+        // bundleAnalyzerReport: process.env.npm_config_report
+    },
+    dev: {
 
-  build: {
-    // Template for index.html
-    index: path.resolve(__dirname, '../dist/index.html'),
+        // Paths
+        assetsSubDirectory: 'static',
+        assetsPublicPath: '/',
+        proxyTable: {},
 
-    // Paths
-    assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+        // Various Dev Server settings
+        host: 'localhost', // can be overwritten by process.env.HOST
+        port: 8089, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+        autoOpenBrowser: false,
+        errorOverlay: true,
+        notifyOnErrors: true,
+        poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    /**
-     * Source Maps
-     */
 
-    // productionSourceMap: true,
-    productionSourceMap: false,
-    // https://webpack.js.org/configuration/devtool/#production
-    devtool: '#source-map',
+        /**
+         * Source Maps
+         */
 
-    // Gzip off by default as many popular static hosts such as
-    // Surge or Netlify already gzip all static assets for you.
-    // Before setting to `true`, make sure to:
-    // npm install --save-dev compression-webpack-plugin
-    productionGzip: false,
-    // productionGzip: true,
-    productionGzipExtensions: ['js', 'css'],
+        // https://webpack.js.org/configuration/devtool/#development
+        devtool: 'cheap-module-eval-source-map',
 
-    // Run the build command with an extra argument to
-    // View the bundle analyzer report after build finishes:
-    // `npm run build --report`
-    // Set to `true` or `false` to always turn it on or off
-    bundleAnalyzerReport: process.env.npm_config_report
-  }
+        // If you have problems debugging vue-files in devtools,
+        // set this to false - it *may* help
+        // https://vue-loader.vuejs.org/en/options.html#cachebusting
+        cacheBusting: true,
+
+        cssSourceMap: true
+    }
 }
