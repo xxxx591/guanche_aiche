@@ -473,6 +473,13 @@ api.getCarDetail = obj => {
     resolve(data)
   })
 }
+// E20-2列表的接口
+api.carCollect = obj => {
+  return new Promise(async (resolve, reject) => {
+    let data = await post(`${config.url}/api/car/carCollect`, obj || {})
+    resolve(data)
+  })
+}
 
 // E20-2获取车辆信息详情
 api.getCarInfo = obj => {

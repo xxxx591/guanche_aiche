@@ -1,13 +1,13 @@
 <template>
   <div class="ProductDetail">
     <div class="top">
-      <img src="../../assets/images/back-arrow.png" @click.stop="topBack" class="top-back">
+      <img src="../../assets/images/back-arrow.png" @click.stop="topBack" class="top-back" />
       <div class="top-txt">商品详情</div>
     </div>
     <div class="banner">
       <van-swipe indicator-color="white">
         <van-swipe-item>
-          <img :src="carInfo.cover" alt srcset>
+          <img :src="carInfo.cover" alt srcset />
         </van-swipe-item>
       </van-swipe>
       <!-- <div class="swiper-pagination"></div> -->
@@ -45,7 +45,7 @@
             <p class="msg">{{picObj.title}}</p>
             <ul class="pic-list">
               <li v-for="(picItem,index) in picObj.pic" :key="index">
-                <img :src="picItem.pic" alt srcset @click="showImg(picObj.pic,index)"> 
+                <img :src="picItem.pic" alt srcset @click="showImg(picObj.pic,index)" />
               </li>
             </ul>
           </div>
@@ -56,8 +56,23 @@
       <div class="buy-box flex-h">
         <!-- @click.stop="waiter"   加在下面-->
         <div class="contact flex-h" @click.stop="waiter">
-          <img src="../../assets/images/kefu.png" alt class="contact-img">
+          <img src="../../assets/images/kefu.png" alt class="contact-img" />
           <div class="contact-txt">客服</div>
+        </div>
+        <div class="contact flex-h" @click.stop="shoucang">
+          <img
+            src="../../assets/images/shoucang.png"
+            alt
+            class="contact-img-1"
+            v-if="productInfo.is_collect==0"
+          />
+          <img
+            src="../../assets/images/shoucang-on.png"
+            alt
+            class="contact-img-1"
+            v-if="productInfo.is_collect==1"
+          />
+          <div class="contact-txt">收藏</div>
         </div>
         <div class="exchange flex-h flex-cc" @click.stop="nowExchange">立即订购</div>
       </div>
@@ -108,9 +123,7 @@ export default {
   components: {
     ImagePreview
   },
-  computed: {
-   
-  },
+  computed: {},
   created() {
     let product = this.$route.params.product;
     let productid = this.$route.query.id;
@@ -133,7 +146,7 @@ export default {
     },
     async getProductDetail(id) {
       this.buyNum = 1;
-       
+
       let data = await this.api.getCarDetail({
         trailer_id: id,
         token: this.$store.state.token
@@ -148,7 +161,7 @@ export default {
     },
     async getCarInfo(id) {
       this.buyNum = 1;
-       
+
       let data = await this.api.getCarInfo({
         trailer_id: id,
         token: this.$store.state.token
@@ -174,7 +187,6 @@ export default {
       // productInfo: {}
     },
     async getUserInfo() {
-       
       let info = await this.api.userDetail({ token: this.$store.state.token });
       this.userInfo = info.data;
       console.log("this.userInfo--", this.userInfo);
@@ -196,6 +208,16 @@ export default {
       // let btn = document.getElementById('MEIQIA-BTN-HOLDER')
       // btn.click()
       // _MEIQIA('manualInit');
+    },
+    async shoucang() {
+      console.log("收藏");
+      let params = {
+        token: this.$store.state.token,
+        trailer_id: this.productInfo.id
+      };
+      let data = await this.api.carCollect(params);
+      console.log("data,", data);
+      this.productInfo.is_collect = data.is_collect
     },
     showImg(arr, id) {
       let self = this;
@@ -471,6 +493,11 @@ export default {
         .contact-img {
           width: 0.64rem /* 48/75 */;
           height: 0.506667rem /* 38/75 */;
+          margin-right: 0.2rem /* 15/75 */;
+        }
+        .contact-img-1 {
+          width: 0.64rem /* 48/75 */;
+          height: 0.64rem /* 38/75 */;
           margin-right: 0.2rem /* 15/75 */;
         }
         .contact-txt {

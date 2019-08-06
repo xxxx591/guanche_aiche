@@ -4,6 +4,7 @@ import index from '@/pages/home'
 
 import Index from '@/pages/main/Index'
  
+import Demo from '@/pages/car/index'
 import LoveCar from '@/pages/car/LoveCar'
 import ChooseCar from '@/pages/car/ChooseCar'
 import ChooseBrand from '@/pages/car/ChooseBrand'
@@ -32,6 +33,11 @@ export default new Router({
       path: '/Index/LoveCar',
       name: 'LoveCar',
       component: LoveCar
+    },
+    {
+      path: '/Demo',
+      name: 'Demo',
+      component: Demo
     },
     {
       path: '/Index',
