@@ -33,7 +33,7 @@ Vue.prototype.javascriptBridge = common.setupWebViewJavascriptBridge
 // Vue.prototype.$bridge = Bridge
 
 Vue.use(Vant);
-new VConsole()
+// new VConsole()
 
 Vue.config.productionTip = false
 Vue.config.headers  = 'application/x-www-form-urlencoded; charset=UTF-8'

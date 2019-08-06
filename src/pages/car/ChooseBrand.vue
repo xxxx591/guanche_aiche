@@ -162,6 +162,7 @@ export default {
       background: #f7f8fa;
       position: fixed;
       z-index: 999;
+      top: 1.3rem;
       .box-item {
         width: 100%;
         height: 1.466666667rem;

@@ -223,11 +223,11 @@ export default {
     },
     gotoPage2(obj) {
       if (obj === "") return;
-      this.$router.push({
-        name: obj.name,
-        query: { type: obj.type,
-        token:this.$store.state.token }
-      });
+      // this.$router.push({
+      //   name: obj.name,
+      //   query: { type: obj.type,
+      //   token:this.$store.state.token }
+      // });
       // 此页面所有路由跳转都要调用此原生通知
       console.log(obj);
       this.native.routerGoTo({
