@@ -1,11 +1,11 @@
 <template>
   <div class="MindLatter">
     <div class="top">
-      <img src="../../assets/images/back-arrow.png" @click.stop="topBack" class="top-back">
+      <img src="../../assets/images/back-arrow.png" @click.stop="topBack" class="top-back" />
       <div class="top-txt">意向书</div>
     </div>
     <div class="box-pro flex-v">
-      <img :src="carInfo.cover" class="b-img">
+      <img :src="carInfo.cover" class="b-img" />
       <div class="b-title">{{areaList.name}}</div>
       <div class="b-des">
         <ul>
@@ -37,42 +37,42 @@
     <div class="info">
       <div class="info-title">基本资料</div>
       <div class="box flex-h" v-show="activeIndex==2">
-        <div class="left flex-h" >
+        <div class="left flex-h">
           <div class="txt">企业名称：</div>
-          <input type="text" placeholder="请输入" class="value" v-model="userInfo.firm_name">
+          <input type="text" placeholder="请输入" class="value" v-model="userInfo.firm_name" />
         </div>
       </div>
       <div class="box flex-h" v-show="activeIndex==2">
-        <div class="left flex-h" >
+        <div class="left flex-h">
           <div class="txt">企业信用代码：</div>
-          <input type="text" placeholder="请输入" class="value" v-model="userInfo.firm_credit_code">
+          <input type="text" placeholder="请输入" class="value" v-model="userInfo.firm_credit_code" />
         </div>
       </div>
       <div class="box flex-h">
         <div class="left flex-h">
           <div class="txt">真实姓名：</div>
-          <input type="text" placeholder="请输入" class="value" v-model="userInfo.cnee">
+          <input type="text" placeholder="请输入" class="value" v-model="userInfo.cnee" />
         </div>
       </div>
       <div class="box flex-h">
         <div class="left flex-h">
           <div class="txt">身份证号：</div>
-          <input type="text" placeholder="请输入" class="value" v-model="userInfo.id_number">
+          <input type="text" placeholder="请输入" class="value" v-model="userInfo.id_number" />
         </div>
       </div>
       <div class="box flex-h">
         <div class="left flex-h">
           <div class="txt">手机号码：</div>
-          <input type="text" placeholder="请输入" class="value" v-model="userInfo.mobile">
+          <input type="text" placeholder="请输入" class="value" v-model="userInfo.mobile" />
         </div>
       </div>
       <div class="box box-last flex-h" @click="areaFlag = true">
         <div class="left flex-h">
           <div class="txt">上牌城市：</div>
-          <input type="text" placeholder="请输入" readonly class="value" v-model="userInfo.plate_city">
+          <input type="text" placeholder="请输入" readonly class="value" v-model="userInfo.plate_city" />
         </div>
-        <div class="arrow" >
-          <img src="../../assets/images/right-arrow.png" class="arrow-img">
+        <div class="arrow">
+          <img src="../../assets/images/right-arrow.png" class="arrow-img" />
         </div>
       </div>
       <van-popup v-model="areaFlag">
@@ -87,7 +87,7 @@
     <div class="read-box flex-h">
       <div class="read-gou">
         <div class="read-img-box">
-          <img src="../../assets/images/login-read.png" alt class="read-img">
+          <img src="../../assets/images/login-read.png" alt class="read-img" />
         </div>
       </div>
       <div class="read-text">提交订单即视为同意</div>
@@ -100,14 +100,14 @@
       </div>
       <div class="btn flex-h flex-cc" @click="buy()">确认预订</div>
     </div>
-    <van-dialog v-model="payFlag"  show-cancel-button class="pay-box">
+    <van-dialog v-model="payFlag" show-cancel-button class="pay-box">
       <div class="img-box">
         <p>
-          <img src="@/assets/images/zfb.png" alt srcset @click="payWay(2)">
+          <img src="@/assets/images/zfb.png" alt srcset @click="payWay(2)" />
         </p>
         <p class="line"></p>
         <p>
-          <img src="@/assets/images/wx.png" alt srcset @click="payWay(1)">
+          <img src="@/assets/images/wx.png" alt srcset @click="payWay(1)" />
         </p>
       </div>
     </van-dialog>
@@ -158,7 +158,7 @@ export default {
   mounted() {
     console.log(this.$store.state.priceObj);
     console.log(this.$store.state.token);
-    
+
     this.areaList = this.$store.state.priceObj;
     this.pickList = this.$store.state.setArray;
     this.carInfo = this.$store.state.carInfo;
@@ -209,7 +209,7 @@ export default {
         this.$toast("请输入证件号");
         return;
       }
-      if (!phoneReg.test(this.userInfo.mobile )) {
+      if (!phoneReg.test(this.userInfo.mobile)) {
         this.$toast("请输入正确的手机号");
         return;
       }
@@ -220,20 +220,22 @@ export default {
       this.payFlag = true;
     },
     async payWay(id) {
-       
-
       let params = {
         token: this.$store.state.token,
         pay_type: id,
         trailer_order_id: this.$route.query.orderid //订单号
       };
+      this.userInfo.token = this.$store.state.token;
+      this.userInfo.trailer_order_id = this.$route.query.orderid;
+      let data = await this.api.getBuyType(this.userInfo);
+      console.log("getBuyType------------", data);
       let list = await this.api.getCarPay(params);
       console.log("list------", list);
-      let payid = '';
-      if (id == 2 ) {
-        payid = 0 
-      }else{
-        payid = 1
+      let payid = "";
+      if (id == 2) {
+        payid = 0;
+      } else {
+        payid = 1;
       }
       let payObj = {
         type: payid,
@@ -241,11 +243,11 @@ export default {
       };
       let payResolve = await this.native.gotoPay(payObj);
       console.log(payResolve);
-      this.userInfo.token = this.$store.state.token;
-      this.userInfo.trailer_order_id =this.$route.query.orderid;
-      let data = await this.api.getBuyType(this.userInfo)
-      console.log('getBuyType------------',data);
-      this.$router.push({ path: "ConfirmBack",query:{orderid:this.$route.query.orderid,type:'1'}});
+
+      this.$router.push({
+        path: "ConfirmBack",
+        query: { orderid: this.$route.query.orderid, type: "1" }
+      });
     }
   }
 };
@@ -258,8 +260,8 @@ export default {
   background: #f7f8fa;
   padding-bottom: 1.766667rem /* 200/75 */;
   position: absolute;
-    top: 1.13333333rem;
-    width: 100%;
+  top: 1.13333333rem;
+  width: 100%;
   .top {
     height: 1.133333rem /* 85/75 */;
     position: relative;
@@ -407,7 +409,7 @@ export default {
         }
       }
       .arrow {
-        padding: 0 .133333rem /* 10/75 */;
+        padding: 0 0.133333rem /* 10/75 */;
         .arrow-img {
           min-width: 0.213333rem /* 16/75 */;
           height: 0.386667rem /* 29/75 */;
@@ -520,7 +522,7 @@ export default {
         content: "";
         position: absolute;
         left: 50%;
-        border-right: .026667rem /* 2/75 */ solid #e6e6e6;
+        border-right: 0.026667rem /* 2/75 */ solid #e6e6e6;
         height: 100%;
       }
     }
