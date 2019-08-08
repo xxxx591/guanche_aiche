@@ -24,7 +24,7 @@ export default new Vuex.Store({
     setArray:[],  //配置参数数组
     orderId:'',   //订单号
     carInfo:{},   // 车辆详情
-    buyCarType:'',   // 购买车辆：2，添加车辆：1
+    buyCarType:'2',   // 购买车辆：2，添加车辆：1
     nowCar:{},  //首页轮播图单台车辆详情
   },
   actions,

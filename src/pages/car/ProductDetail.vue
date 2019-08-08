@@ -72,7 +72,7 @@
             class="contact-img-1"
             v-if="productInfo.is_collect==1"
           />
-          <div class="contact-txt">收藏</div>
+          <div class="contact-txt">{{shoucangtitle==0?'收藏':'已收藏'}}</div>
         </div>
         <div class="exchange flex-h flex-cc" @click.stop="nowExchange">立即订购</div>
       </div>
@@ -117,7 +117,8 @@ export default {
       carInfo: {},
       userInfo: {},
       active: 0,
-      showImgFlag: false
+      showImgFlag: false,
+      shoucangtitle:'收藏'
     };
   },
   components: {
@@ -127,6 +128,7 @@ export default {
   created() {
     let product = this.$route.params.product;
     let productid = this.$route.query.id;
+    this.$store.state.token = this.$route.query.token
     console.log("productid---", productid);
     this.getProductDetail(productid);
     this.getUserInfo();
@@ -175,7 +177,9 @@ export default {
         // this.showImgFlag = false;
         // this.instance.close();
         return;
-      } else {
+      } else if(this.$route.query.type==1){
+        this.native.back_btn({});
+      }else {
         this.$router.back(-1);
       }
     },

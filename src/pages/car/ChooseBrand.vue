@@ -18,7 +18,7 @@
         <div
           class="box-pro"
           v-for="(item,index) in productList"
-          @click.stop="$router.push({name: 'ProductDetail', query: {id: item.id}})"
+          @click.stop="$router.push({name: 'ProductDetail', query: {id: item.id,token:$store.state.token}})"
           :key="index"
         >
           <div class="b-top">
