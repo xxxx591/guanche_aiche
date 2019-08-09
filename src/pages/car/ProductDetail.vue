@@ -72,7 +72,7 @@
             class="contact-img-1"
             v-if="productInfo.is_collect==1"
           />
-          <div class="contact-txt">{{shoucangtitle==0?'收藏':'已收藏'}}</div>
+          <div class="contact-txt">{{shoucangtitle}}</div>
         </div>
         <div class="exchange flex-h flex-cc" @click.stop="nowExchange">立即订购</div>
       </div>
@@ -154,6 +154,7 @@ export default {
         token: this.$store.state.token
       });
       this.productInfo = data;
+      this.productInfo.is_collect ==0 ? this.shoucangtitle='收藏':this.shoucangtitle='已收藏'
       this.init(data);
       this.getCarInfo(id);
     },
@@ -221,6 +222,7 @@ export default {
       };
       let data = await this.api.carCollect(params);
       console.log("data,", data);
+      data.is_collect ==0 ? this.shoucangtitle='收藏':this.shoucangtitle='已收藏'
       this.productInfo.is_collect = data.is_collect
     },
     showImg(arr, id) {
