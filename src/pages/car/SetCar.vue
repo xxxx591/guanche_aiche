@@ -18,10 +18,10 @@
                 :key="checkIndex"
               >
                 <span @click="check(item,checkIndex)">{{item.name}}</span>
-                <p class="pic-cover" :style="'top:'+(rulesList.length/2 +1)*1+'rem'">
-                  <img :src="item.cover" v-show="classIndex ===  checkIndex" alt srcset />
-                </p>
               </div>
+              <p class="pic-cover">
+                <img :src="rulesList[checkIndex].cover" alt srcset />
+              </p>
             </div>
           </div>
         </van-tab>
@@ -34,7 +34,11 @@
           <div class="left-txt">预计费用:</div>
           <div class="left-price">¥{{price}}</div>
         </div>
-        <div class="bbbt-right flex-h flex-cc" @click="gotoPage('ConfirmConfig',priceObj)" :class="hideFlag?'':'hide'">确认订单</div>
+        <div
+          class="bbbt-right flex-h flex-cc"
+          @click="gotoPage('ConfirmConfig',priceObj)"
+          :class="hideFlag?'':'hide'"
+        >确认订单</div>
       </div>
     </div>
   </div>
@@ -56,7 +60,7 @@ export default {
       selectedRule: "",
       actionIndex: 0, //tab顶部index
       priceObj: [],
-      checkIndex: "", // 生成的区域的index
+      checkIndex: "0", // 生成的区域的index
       price: 0,
       classIndex: "",
       throttling: true,
@@ -300,9 +304,9 @@ export default {
       .pic-cover {
         width: 6.266667rem /* 470/75 */;
         height: 6.266667rem /* 470/75 */;
-        position: absolute;
-        top: 0;
-        left: 0;
+        // position: absolute;
+        // top: 0;
+        // left: 0;
         img {
           width: 100%;
           height: 100%;
@@ -318,6 +322,11 @@ export default {
         font-size: 0.373333rem /* 28/75 */ /* 14/75 */;
         min-width: 45%;
         margin-bottom: 0.4rem;
+        display: flex;
+        span {
+          flex: 1;
+          text-align: center;
+        }
       }
       .s-ele2 {
         background: #4ccdfa;
@@ -374,7 +383,7 @@ export default {
       }
     }
     .hide {
-      background: #bbb!important;
+      background: #bbb !important;
     }
   }
   .tab-title {

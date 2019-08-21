@@ -126,6 +126,7 @@ export default {
   },
   computed: {},
   created() {
+    console.log(this.$route.query)
     let product = this.$route.params.product;
     let productid = this.$route.query.id;
     this.$store.state.token = this.$route.query.token

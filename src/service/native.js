@@ -66,7 +66,7 @@ if (config.env === 0) {
       // 31204e4a13634791520297bc28626ba6   17191098959
       // f905c9d34bbb7d47b459fe420a70d042
       // of2j85_QmZ9g1kLHzaz6ZbNKEqKI
-      resolve({ token: 'c2740354f0d140193ed04185c66b6e8f' })
+      resolve({ token: '72edfd32ee268b5809ecfae21d8b0b22' })
     })
   }
 }
