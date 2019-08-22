@@ -63,8 +63,9 @@ export default {
       console.log("query---", this.$route.query.token);
     } else {
       this.$store.state.token = await this.native.getToken({});
+      this.$store.state.token = this.$store.state.token.token
       this.getBrand2(this.$route.query.id);
-      console.log("query---", this.$route.query.id);
+      console.log("query---", this.$store.state.token);
     }
   },
   methods: {

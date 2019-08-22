@@ -125,12 +125,12 @@ export default {
     ImagePreview
   },
   computed: {},
-  created() {
+  mounted() {
     console.log(this.$route.query)
     let product = this.$route.params.product;
     let productid = this.$route.query.id;
     this.$store.state.token = this.$route.query.token
-    console.log("productid---", productid);
+    console.log("this.$store.state.token", this.$store.state.token);
     this.getProductDetail(productid);
     this.getUserInfo();
   },

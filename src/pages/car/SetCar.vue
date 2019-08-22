@@ -85,7 +85,7 @@ export default {
       };
     }
   },
-  created() {
+  mounted() {
     // this.getCarRules();
     console.log(this.$refs);
     this.rules = JSON.parse(
