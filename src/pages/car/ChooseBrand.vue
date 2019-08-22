@@ -63,7 +63,7 @@ export default {
       console.log("query---", this.$route.query.token);
     } else {
       this.$store.state.token = await this.native.getToken({});
-      this.$store.state.token = this.$store.state.token.token
+      this.$store.state.token = this.$store.state.token.token;
       this.getBrand2(this.$route.query.id);
       console.log("query---", this.$store.state.token);
     }
@@ -164,6 +164,7 @@ export default {
       position: fixed;
       z-index: 999;
       top: 1.3rem;
+      padding-bottom: 2rem;
       .box-item {
         width: 100%;
         height: 1.466666667rem;
