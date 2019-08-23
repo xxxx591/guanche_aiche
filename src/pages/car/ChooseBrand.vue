@@ -5,14 +5,16 @@
       <div class="top-txt">{{msg}}</div>
     </div>
     <div class="box flex-h">
-      <div class="box-category">
-        <div
-          class="box-item flex-h flex-cc"
-          :class="{'box-item-active': currentBrand2.id == item.id}"
-          v-for="(item, index) in brand2List"
-          @click.stop="selectBrand2(item)"
-          :key="index"
-        >{{item.title}}</div>
+      <div class="box-category" ref="category">
+        <div class="content-box">
+          <div
+            class="box-item flex-h flex-cc"
+            :class="{'box-item-active': currentBrand2.id == item.id}"
+            v-for="(item, index) in brand2List"
+            @touchstart="selectBrand2(item)"
+            :key="index"
+          >{{item.title}}</div>
+        </div>
       </div>
       <div class="box-product flex-h">
         <div
@@ -41,6 +43,7 @@ import { mapActions, mapState } from "vuex";
 //     window.afterPlayVideo(data, responseCallback);
 //   });
 // });
+let BScroll = require("../../js/bscroll/bscroll.js");
 export default {
   // 选择品牌
   name: "ChooseBrand",
@@ -49,7 +52,8 @@ export default {
       msg: "选择品牌",
       brand2List: [],
       currentBrand2: {},
-      productList: []
+      productList: [],
+      scroll: ""
     };
   },
   computed: {},
@@ -90,6 +94,11 @@ export default {
       let list = await this.api.carCategory({ pid: id });
       console.log("carCategory---", list);
       this.brand2List = list;
+      this.brand2List.push({
+        title:'  ',
+        id:'123',
+        pid:'123456'
+      })
       this.currentBrand2 = list[0];
       this.getBrandProduct(list[0].id);
     },
@@ -106,9 +115,19 @@ export default {
       console.log("getBrandProduct---", list.data);
     },
     selectBrand2(item) {
+      console.log('123');
       this.currentBrand2 = item;
       this.getBrandProduct(item.id);
-    }
+    },
+
+  },
+  mounted() {
+    console.log("BScroll", BScroll.BScroll);
+    this.$nextTick(_ => {
+      let wrapper = this.$refs.category;
+      console.log('wrapper',wrapper);
+      this.scroll = new BScroll.BScroll(wrapper);
+    });
   }
 };
 </script>
@@ -164,7 +183,7 @@ export default {
       position: fixed;
       z-index: 999;
       top: 1.3rem;
-      padding-bottom: 2rem;
+      padding-bottom: 4rem;
       .box-item {
         width: 100%;
         height: 1.466666667rem;
