@@ -105,6 +105,10 @@ export default {
     },
     async chooseRule(item, index) {
       console.log(index);
+      this.$toast.loading({
+        mask: true,
+        message: "加载中..."
+      });
       this.actionIndex = index;
       this.classIndex = "";
       let list = await this.api.formatType({
@@ -116,6 +120,7 @@ export default {
           this.classIndex = i.classIndex;
         }
       });
+      this.$toast.clear();
       console.log("formatType-----", list);
     },
     async getCarRules() {
@@ -127,35 +132,38 @@ export default {
       this.chooseRule(list[0], 0);
     },
     check(item, index) {
+      // debugger
+      let newitem = JSON.parse(JSON.stringify(item))
+
       if (this.throttling) {
         this.throttling = false;
         let price = 0;
         if (this.classIndex === index) {
-          item.actionIndex = this.actionIndex;
+          newitem.actionIndex = this.actionIndex;
           this.priceObj.forEach((i, val) => {
-            if (i.actionIndex === item.actionIndex) {
+            if (i.actionIndex === newitem.actionIndex) {
               this.priceObj.splice(val, 1);
               this.classIndex = "";
             }
           });
         } else {
           this.classIndex = index;
-          item.actionIndex = this.actionIndex;
-          item.classIndex = index;
-          item.type = this.rules[this.actionIndex].name;
+          newitem.actionIndex = this.actionIndex;
+          newitem.classIndex = index;
+          newitem.type = this.rules[this.actionIndex].name;
           let flag = true;
           let obj = {};
 
           for (let i = 0; i < this.priceObj.length; i++) {
             let obj1 = this.priceObj[i];
-            if (obj1.actionIndex === item.actionIndex) {
-              // obj1 = JSON.parse(JSON.stringify(item));
-              obj1.actionIndex = item.actionIndex;
-              obj1.classIndex = item.classIndex;
+            if (obj1.actionIndex === newitem.actionIndex) {
+              // obj1 = JSON.parse(JSON.stringify(newitem));
+              obj1.actionIndex = newitem.actionIndex;
+              obj1.classIndex = newitem.classIndex;
               obj1.type = this.rules[this.actionIndex].name;
-              obj1.id = item.id;
-              obj1.name1 = item.name;
-              obj1.price = item.price;
+              obj1.id = newitem.id;
+              obj1.name1 = newitem.name;
+              obj1.price = newitem.price;
               flag = false;
             }
           }
@@ -164,7 +172,7 @@ export default {
           console.log(this.$store.state.priceObj);
           console.log(this.$store.state.setArray);
           if (flag) {
-            this.priceObj.push(item);
+            this.priceObj.push(newitem);
           }
         }
         this.priceObj.forEach(key => {

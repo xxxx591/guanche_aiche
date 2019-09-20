@@ -95,10 +95,10 @@ export default {
       console.log("carCategory---", list);
       this.brand2List = list;
       this.brand2List.push({
-        title:'  ',
-        id:'123',
-        pid:'123456'
-      })
+        title: "  ",
+        id: "123",
+        pid: "123456"
+      });
       this.currentBrand2 = list[0];
       this.getBrandProduct(list[0].id);
     },
@@ -112,20 +112,24 @@ export default {
         vehicle_id: id
       });
       this.productList = list.data;
+      this.$toast.clear();
       console.log("getBrandProduct---", list.data);
     },
     selectBrand2(item) {
-      console.log('123');
+      console.log("123");
+      this.$toast.loading({
+        mask: true,
+        message: "加载中..."
+      });
       this.currentBrand2 = item;
       this.getBrandProduct(item.id);
-    },
-
+    }
   },
   mounted() {
     console.log("BScroll", BScroll.BScroll);
     this.$nextTick(_ => {
       let wrapper = this.$refs.category;
-      console.log('wrapper',wrapper);
+      console.log("wrapper", wrapper);
       this.scroll = new BScroll.BScroll(wrapper);
     });
   }

@@ -74,7 +74,7 @@
           />
           <div class="contact-txt">{{shoucangtitle}}</div>
         </div>
-        <div class="exchange flex-h flex-cc" @click.stop="nowExchange">立即订购</div>
+        <div class="exchange flex-h flex-cc" @click.stop="nowExchange">自选配置</div>
       </div>
     </div>
   </div>
