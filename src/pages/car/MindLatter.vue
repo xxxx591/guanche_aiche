@@ -66,6 +66,7 @@
           <input type="text" placeholder="请输入" class="value" v-model="userInfo.mobile" />
         </div>
       </div>
+
       <div class="box box-last flex-h" @click="areaFlag = true">
         <div class="left flex-h">
           <div class="txt">上牌城市：</div>
@@ -73,6 +74,12 @@
         </div>
         <div class="arrow">
           <img src="../../assets/images/right-arrow.png" class="arrow-img" />
+        </div>
+      </div>
+      <div class="box flex-h">
+        <div class="left flex-h">
+          <div class="txt">取车地点：</div>
+          <input type="text" placeholder="请输入" class="value" v-model="userInfo.address" />
         </div>
       </div>
       <van-popup v-model="areaFlag">
@@ -216,6 +223,9 @@ export default {
       if (this.userInfo.plate_city == "") {
         this.$toast("请选择上牌城市");
         return;
+      }if(this.userInfo.address .lenth>=30){
+        this.$toast('取车地点不能超过30字')
+        return
       }
       this.payFlag = true;
     },
