@@ -162,7 +162,7 @@ export default {
               obj1.classIndex = newitem.classIndex;
               obj1.type = this.rules[this.actionIndex].name;
               obj1.id = newitem.id;
-              obj1.name1 = newitem.name;
+              obj1.name = newitem.name;
               obj1.price = newitem.price;
               flag = false;
             }

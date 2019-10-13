@@ -187,6 +187,8 @@ export default {
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid #f6f6f6;
+    z-index: 999999;
+    background: #fff;
     .b-left {
       height: 0.4rem /* 30/75 */;
       .left-txt {

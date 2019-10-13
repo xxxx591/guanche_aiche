@@ -489,6 +489,8 @@ export default {
     height: 1.466667rem /* 110/75 */;
     border-top: 0.013333rem /* 1/75 */ solid #e5e5e5; /*no*/
     background: #ffffff;
+    z-index: 999999;
+    background: #fff;
     .buy-box {
       width: 100%;
       height: 100%;
