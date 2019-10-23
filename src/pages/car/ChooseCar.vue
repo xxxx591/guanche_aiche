@@ -5,7 +5,7 @@
       <div class="top-txt">选择车型</div>
     </div>
     <div class="box" v-for="(item, index) in list" @click.stop="selectBrand(item)" :key="index">
-      <img :src="item.cover" alt class="box-car">
+      <img v-lazy="item.cover" alt class="box-car">
       <div class="box-txt">{{item.title}}</div>
     </div>
   </div>
@@ -112,6 +112,7 @@ export default {
     .box-car {
       width: 100%;
       height: 100%;
+      background: #efefef;
     }
     .box-txt {
       width: 100%;

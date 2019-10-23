@@ -24,7 +24,7 @@
           :key="index"
         >
           <div class="b-top">
-            <img :src="item.cover" class="b-top-img" />
+            <img v-lazy="item.cover" class="b-top-img" />
           </div>
           <div class="b-title">{{item.name}}</div>
           <div class="b-price">{{item.price_range}}</div>
@@ -218,6 +218,7 @@ export default {
           .b-top-img {
             width: 100%;
             height: 100%;
+            background: #efefef;
           }
         }
         .b-title {

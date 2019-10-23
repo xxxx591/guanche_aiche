@@ -223,9 +223,10 @@ export default {
       if (this.userInfo.plate_city == "") {
         this.$toast("请选择上牌城市");
         return;
-      }if(this.userInfo.address .lenth>=30){
-        this.$toast('取车地点不能超过30字')
-        return
+      }
+      if (this.userInfo.address.lenth >= 30) {
+        this.$toast("取车地点不能超过30字");
+        return;
       }
       this.payFlag = true;
     },
@@ -336,7 +337,14 @@ export default {
         width: 100%;
         li {
           width: 33%;
+          height: 0.4rem;
+          margin-bottom: 10px;
+
           p {
+            height: 15px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
             i {
               font-style: normal;
             }
