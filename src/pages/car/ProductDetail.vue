@@ -16,30 +16,13 @@
       <div class="title">{{carInfo.name}}</div>
       <div class="des">{{carInfo.desc}}</div>
       <div class="price-box flex-h">
-        <div class="price">预计费用：{{carInfo.price_range}}</div>
+        <!-- <div class="price">预计费用：{{carInfo.price_range}}</div> -->
         <!-- <div class="price-txt">万</div> -->
       </div>
     </div>
 
     <div class="detail">
       <van-tabs v-model="active">
-        <van-tab title="车辆概述">
-          <div class="hot">
-            <p class="msg">保养要求</p>
-            <ul>
-              <li v-for="(item,index) in carInfo.aegis_claim" :key="index">
-                <div>
-                  <i class="suggest-left"></i>
-                  <div class="suggest-right">
-                    <p class="suggest-title">{{item.name}}</p>
-                    <p class="suggest-message">{{item.content}}</p>
-                    <p class="suggest-message">预计费用：￥{{item.price}}</p>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </van-tab>
         <van-tab title="车辆图组">
           <div class="hot pic-view" v-for="(picObj,index) in carInfo.pic_name" :key="index">
             <p class="msg">{{picObj.title}}</p>
@@ -50,6 +33,24 @@
             </ul>
           </div>
         </van-tab>
+        <van-tab title="车辆概述">
+          <div class="hot">
+            <p class="msg">保养要求</p>
+            <ul>
+              <li v-for="(item,index) in carInfo.aegis_claim" :key="index">
+                <div>
+                  <i class="suggest-left"></i>
+                  <div class="suggest-right">
+                    <p class="suggest-title">{{item.name}}</p>
+                    <p class="suggest-message">{{item.content}}</p>
+                    <!-- <p class="suggest-message">预计费用：￥{{item.price}}</p> -->
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </van-tab>
+        
       </van-tabs>
     </div>
     <div class="buy">
@@ -179,7 +180,7 @@ export default {
         // this.showImgFlag = false;
         // this.instance.close();
         return;
-      } else if(this.$route.query.type==1){
+      } else if(this.$route.query.type==1 || this.$route.query.type=='banner'){
         this.native.back_btn({});
       }else {
         this.$router.back(-1);
@@ -198,19 +199,22 @@ export default {
       console.log("this.userInfo--", this.userInfo);
     },
     waiter() {
-      (function(m, ei, q, i, a, j, s) {
-        m[i] =
-          m[i] ||
-          function() {
-            (m[i].a = m[i].a || []).push(arguments);
-          };
-        (j = ei.createElement(q)), (s = ei.getElementsByTagName(q)[0]);
-        j.async = true;
-        j.charset = "UTF-8";
-        j.src = "https://static.meiqia.com/dist/meiqia.js?_=t";
-        s.parentNode.insertBefore(j, s);
-      })(window, document, "script", "_MEIQIA");
-      window._MEIQIA("entId", 147235);
+      // (function(m, ei, q, i, a, j, s) {
+      //   m[i] =
+      //     m[i] ||
+      //     function() {
+      //       (m[i].a = m[i].a || []).push(arguments);
+      //     };
+      //   (j = ei.createElement(q)), (s = ei.getElementsByTagName(q)[0]);
+      //   j.async = true;
+      //   j.charset = "UTF-8";
+      //   j.src = "https://static.meiqia.com/dist/meiqia.js?_=t";
+      //   s.parentNode.insertBefore(j, s);
+      // })(window, document, "script", "_MEIQIA");
+      // window._MEIQIA("entId", 147235);
+      this.native.makeCall({
+        mobile: "4000135880"
+      });
       // let btn = document.getElementById('MEIQIA-BTN-HOLDER')
       // btn.click()
       // _MEIQIA('manualInit');

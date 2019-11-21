@@ -129,6 +129,7 @@ export default {
   position: absolute;
     top: 1.13333333rem;
     width: 100%;
+    padding-bottom: 3rem;
   .top {
     height: 1.133333rem /* 85/75 */;
     position: relative;
